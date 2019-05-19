@@ -1,0 +1,102 @@
+/*To run this class,
+  First i have to edit the AndroidManifest.xml, and add the location permission:
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  so that i can have access in the GPS of the android device
+*/
+
+
+
+/* Θα υπάρχει μια βάση δεδομένων(έστω το αρχείο Stations) με τη οποία θα συνδέεται η εφαρμογή μας και θα περιέχει
+   όλους τους διαθέσιμους σταθμούς ποδηλάτων στη πόλη(συντεταγμένες για κάθε σταθμό), το πλήθος των διαθέσιμων ποδηλάτων
+   (το οποίο θα μεταβάλλεται κάθε φορά με τη κλήση της συνάρτησης BikeUnlock).
+   Δλδ. μορφή: (id σταθμού, όνομα σταθμού, latitude, longtitude, πλήθος ποδηλάτων)
+   
+    Η θέση του χρήστη θα εντοπίζεται με χρήση gps.
+        
+   Επίσης, θα υπάρχει μια βάση(έστω Bikes) που θα περιέχει ως πεδία το barcode κάθε ποδηλάτου, την κατάσταση locked ή
+   unlocked και το χρήστη που χρησιμοποιεί το ποδήλατο όταν αυτό είναι unlocked.
+   μορφή: (barcode ποδηλάτου, status_of_bike, user_of_bike)
+*/
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import javax.swing. *;
+import java.awt.event.*;
+
+
+public class Station extends JFrame {
+    
+    String name_of_station;
+    double latit, longtit ;
+    
+   
+      public static void main(String[] args)throws Exception 
+      { 
+  
+         BufferedReader in = null;
+     
+     
+         try{ 
+               in = new BufferedReader(new FileReader("Stations.txt"));
+     
+               //GPS
+               LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+               Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+               double longitude = location.getLongitude();
+               double latitude = location.getLatitude();
+     
+               String elements = new String[5];
+               float dist;
+               double lat1, long1;
+               
+               int i;
+               String read = null;
+         
+               while ((read = in.readLine()) != null) {
+                    i=0;
+                    String[] splited = read.split("\\|");
+                    for (String part : splited) {
+                       elements[i] = part;         
+                       i++;
+                    }
+        
+        
+                    lat1 = elements[2];
+                    lat3 = elements[3];
+                    dist = distance(latitude, longtitude, lat1, long1);
+        
+                    System.out.println("Σταθμός " + elements[1]);
+                    System.out.println("Διαθέσιμα ποδήλατα:" + elements[4]);
+                    System.out.println("Απόσταση: " + dist);
+              }
+     
+          } catch (IOException e) {
+                System.out.println("There was a problem: " + e);
+                e.printStackTrace();
+           } 
+
+    
+   } 
+     
+     public final static double AVERAGE_RADIUS_OF_EARTH_KM= 6371;
+  
+       public float distance(double userLat, double userLng, double venueLat, double venueLng) {
+
+           double latDistance = Math.toRadians(userLat - venueLat);
+           double lngDistance = Math.toRadians(userLng - venueLng);
+
+           double a = (Math.sin(latDistance / 2) * Math.sin(latDistance / 2)) +
+                    (Math.cos(Math.toRadians(userLat))) *
+                    (Math.cos(Math.toRadians(venueLat))) *
+                    (Math.sin(lngDistance / 2)) *
+                    (Math.sin(lngDistance / 2));
+
+           double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+           return (float) (Math.round(AVERAGE_RADIUS_OF_EARTH_KM * c));
+
+       }
+    }
+  

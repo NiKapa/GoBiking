@@ -1,0 +1,53 @@
+import javax.swing. *;
+import java.awt.event.*; 
+
+
+//θα υπάρχει ένα αρχείο-βάση(έστω Events) με όλες τις εκδηλώσεις, με πεδία (διοργανωτής, όνομα εκδήλωσης, σημείο εκκίνησης, ημερομηνία-ώρα, διαδρομή, πλήθος συμμετοχόντων)
+
+
+public class Event extends JFrame {
+    String name_of_organiser, name_of_event, date_time, start, finish;
+    int num;
+    
+    JButton button1 = new JButton("Δημιουργία Εκδήλωσης");
+    JButton button2 = new JButton("Προβολή Εκδηλώσεων");
+    
+    public BikeTheCity() {
+        super("Bike The City");
+        setSize(500,500);
+        
+        Clicklistener click= new Clicklistener();
+        button1.addActionListener(click); 
+        button2.addActionListener(click);
+        
+        JPanel pane = new JPanel();
+        pane.add(button1);
+        pane.add(button2);
+        
+        add(pane);
+        setVisible(true);
+        
+    }
+    
+    private class Clicklistener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+             if (e.getSource() == button1) {
+                    
+                  //ανοίγει νέα οθόνη όπου υπάρχουν τα πεδία με τα στοιχεία της εκδήλωσης που πρέπει να δηλώσει ο χρήστης
+                }
+             
+             else if (e.getSource() == button2) {
+                  // διαβάζει το αρχείο Events 
+                  //ανοίγει νέα οθόνη με τις προγραμματισμένες εκδηλώσεις όπου ο χρήστης μπορεί να επιλέξει ποιά εκδήλωση τον ενδιαφέρει και να δηλώσει συμμετοχή
+                  
+              }
+             }
+       }
+       
+   public static void main(String[] arguments) {
+        Event eve = new Event();
+            
+       }
+       
+    }

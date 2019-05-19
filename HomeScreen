@@ -1,0 +1,66 @@
+import java.io.*;
+import javax.swing.*;
+import javax.imageio.ImageIO;
+
+public class HomeScreen extends JFrame {
+    
+    JPanel panel = new JPanel();
+    
+    JButton button1 = new JButton("Βρες ποδήλατο");
+    JButton button2 = new JLabel("Ξεκλείδωσε ποδήλατο");
+    JButton button3 = new JLabel("Ποδηλατόδρομοι στη πόλη");
+    JButton button4 = new JLabel("Bike The City");
+    JButton button5 = new JLabel("Εγγραφή");
+    JButton button6 = new JLabel("Αναφορά Προβλημάτων")
+    
+    
+    public HomeScreen() {
+        super("GoBiking");
+        setSize(500,400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        Clicklistener click= new Clicklistener();
+        button1.addActionListener(click); 
+        button2.addActionListener(click);
+        button3.addActionListener(click);
+        button4.addActionListener(click);
+        button5.addActionListener(click);
+        button6.addActionListener(click);
+        
+        JPanel pane = new JPanel();
+        pane.add(button1,button2,button3,button4,button5,button6);
+        add(pane);
+        setVisible(true);
+        
+    }
+    
+    private class Clicklistener implements ActionListener {
+
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == button1) {
+                    Station s = new Station();
+                }
+             
+                else if (e.getSource() == button2) {
+                    Bike b = new Bike();
+                }
+                else if (e.getSource() == button3) {
+                    BikeRoads br = new BikeRoads();
+                }
+                else if (e.getSource() == button4) {
+                    Event e = new Event();
+                }
+                else if (e.getSource() == button5 ) {
+                    User.Register user = new User.Register();
+                    
+                }
+                else if (e.getSource() == button6) 
+                    User.Report rep = new  User.Report();
+             }
+       }
+       
+    public static void main (String[] args) {
+         HomeScreen hs = new HomeScreen();
+    }
+ }

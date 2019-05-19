@@ -1,0 +1,97 @@
+import javax.swing. *;
+import java.awt.event.*;
+
+
+public class Bike extends JFrame {
+    
+    BigInteger bi1 =  new BigInteger();
+    enum status { 
+        LOCKED, UNLOCKED
+    }
+    
+    String user_of_bike;
+    JButton button1 = new JButton("Ready for GoBiking");
+    
+    public Bike() {
+       
+        super("Ξεκλείδωμα ποδηλάτου");
+        setSize(500,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        Clicklistener click= new Clicklistener();
+        
+        JPanel pane = new JPanel();
+        JLabel textlabel = new JLabel("Για να ξεκλειδώσεις το ποδήλατο, σκάναρε το barcode");
+        button1.addActionListener(click);
+        
+        pane.add(textlabel);
+        pane.add(button1);
+        add(pane);
+        setVisible(true);
+        
+        
+        //GPS για να εντοπίσω σε ποιό σταθμό βρίσκεται ο χρήστης
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+        
+        String elements = new String[5];
+        int i;
+        String Station;
+        
+        while ((read = in.readLine()) != null) {
+            i=0;
+            String[] splited = read.split("\\|");
+         
+            for (String part : splited) {
+                elements[i] = part;
+                i++;
+            }
+        
+            if(elements[2] == latitude && elements[3] == longtitude) {
+                    
+                    Station=element[1];//βρήκαμε σε ποιό σταθμό είναι ο χρήστης
+                    break;
+                }
+    
+            }
+            
+            
+         private class Clicklistener implements ActionListener {
+
+            public void actionPerformed(ActionEvent e) {
+               if (e.getSource() == button1) {
+                   Camera camera = Camera.open();
+                   //Scan the barcode
+                 
+                   //εδώ θα διαβάζει ένα αρχείο-βάση(έστω Bikes) το οποίο θα περιέχει ως πεδία το barcode κάθε ποδηλάτου, την κατάσταση locked ή
+                   // unlocked και το χρήστη που χρησιμοποιεί το ποδήλατο όταν αυτό είναι unlocked.
+                 
+                   //ΑΝ η κατάσταση του ποδηλάτου είναι locked ,
+                   //τότε 
+                   //θα γίνεται unlocked 
+                   //θα εγγράφεται στη βάση το id του χρήστη που ξεκλείδωσε το ποδήλατο
+                   //θα ανοίγει το αρχείο-βάση Stations που περιέχει τους σταθμούς και θα μειώνεται το πλήθος των ποδηλάτων του συγκεκριμένου σταθμού
+                 
+                   //ΑΛΛΙΩΣ αν είναι unlocked 
+                    //θα γίνεται locked ,
+                   //θα διαγράφεται το πεδίο του χρήστη που αποδεσμεύει το ποδήλατο στο αρχείο,
+                  //θα ανοίγει το αρχείο-βάση Stations και θα αυξάνεται το πλήθος των ποδηλάτων στο σταθμό.  
+                 
+                   camera.release();//κλείνει η κάμερα
+                 
+             }
+         }
+        }
+        
+  
+     
+       public static void main(String[] arguments) {
+            Bike bike = new Bike();
+            
+       }
+        
+     }
+}
+    

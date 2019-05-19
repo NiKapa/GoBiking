@@ -1,0 +1,123 @@
+import javax.swing. *;
+import java.awt.event.*; 
+
+public class User extends javax.swing.JFrame {
+    
+    
+    String name, srname, ID, Pas;
+    
+    
+    public class Register() {
+         
+        JTextField username = new JTextField(15);
+        JTextField surname = new JTextField(15);
+        JTextField idnum = new JTextField(15);
+        JPasswordField password = new JPasswordField(15);
+
+    
+        JButton ok = new JButton("Επόμενο");
+        
+        public Register() { 
+             super("Εγγραφή");
+             setSize(500,400);
+             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+           //θα διαβάζει από ένα αρχείο-βάση(έστω Users) το οποίο θα περιέχει τα στοιχεία των εγγεγραμμένων χρηστών
+           //(όνομα,επώνυμo,αριθμός ταυτότητας, κατάσταση ENABLE/DISABLE για περιγραφή αν ο χρήστης έχει δυαντότητα χρήσης των ποδηλάτων),
+           //εστω τα στοιχεία nam,sur,in:
+        
+             String nam = "Giannis";
+             String sur = "Giannopoulos";
+             String in = "AM54326";
+        
+             JPanel pane = new JPanel();
+             JLabel usernameLabel = new JLabel("Όνομα:");
+             JLabel surnameLabel = new JLabel("Επώνυμο:");
+             JLabel idLabel = new JLabel("Αριθμός Ταυτότητας:");
+             JLabel passlabel = new JLabel("Κωδικός");
+        
+             pane.add(usernameLabel);
+             pane.add(username);
+             pane.add(surnameLabel);
+             pane.add(surname);
+             pane.add(idLabel);
+             pane.add(idnum);
+             pane.add(passlabel);
+             pane.add(password);
+             add(pane);
+             setVisible(true);
+        
+            JButton ok = new JButton("Επόμενο");
+        
+          ok.addActionListener(new ActionListener() {
+            public void ActionPerformed(ActionEvent argo) {
+                String uname = username.getText();
+                String sname = surname.getText();
+                String idn = idn.getText();
+                String pass = passwordField.getText();
+                
+                if (uname.equals("nam") && sname.equals("sur") && idn.equals("in"))
+                { 
+                    JOptionPane.showMesssageDialog(pane, "Επιτυχής Εγγραφή");
+                }
+                else
+                {
+                    JOptionPane.showMesssageDialog(pane, "Προσπάθησε ξανά!");
+                }
+            }
+           });
+    
+        pane.add(ok);
+   }
+}
+
+
+    public class Report extends JFrame {
+        JButton button1 = new JButton("Πρόκληση προβλήματος από το χρήστη");
+        JButton button2 = new JButton("Άλλος παράγοντας");
+    
+        public Report() {
+        super("Αναφορά προβλημάτων");
+        setSize(500,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        Clicklistener click= new Clicklistener();
+        button1.addActionListener(click); 
+        button2.addActionListener(click);
+        
+        JPanel pane = new JPanel();
+        pane.add(button1);
+        pane.add(button2);
+        
+        add(pane);
+        setVisible(true);
+        
+    }
+        
+    
+    private class Clicklistener implements ActionListener {
+
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == button1) {
+                    
+                    //ανοίγει μια φόρμα περιγραφής του προβλήματος
+                    //ενημερώνει το χρήστη με ένα συμβολικό πρόστιμο που πρεπει να πληρώσει
+                    //ανοίγει το αρχείο-βάση Users με τα στοιχεία των εγγεγραμμένων χρηστών
+                    //(όνομα,επώνυμo,αριθμός ταυτότητας, πεδίο ENABLE/DISABLE για περιγραφή αν ο χρήστης έχει δυνατότητα χρήσης των ποδηλάτων)
+                    //και αλλάζει τη κατάσταση σε DISABLE
+                  
+                }
+             
+                else if (e.getSource() == button2) {
+                // Anoikse forma gia ypoboli anaforas opou perigrafete to problima
+                }
+             }
+       }
+       
+       
+       
+    public static void main (String[] args) {
+        User user = new User();
+    }
+ }
+}
